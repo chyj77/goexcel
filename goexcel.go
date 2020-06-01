@@ -34,7 +34,7 @@ func main() {
 	//注册驱动
 	orm.RegisterDriver("mysql", orm.DRMySQL)
 	//注册默认数据库
-	orm.RegisterDataBase("default", "mysql", "root:rc@05926383111@tcp(192.168.2.180:3307)/dev?collation=utf8mb4_unicode_ci&charset=utf8mb4,utf8&tls=false")
+	orm.RegisterDataBase("default", "mysql", "root:rc@05926383111@tcp(39.108.0.21:3306)/dev?collation=utf8mb4_unicode_ci&charset=utf8mb4,utf8&tls=false")
 	//注册model
 	orm.RegisterModel(new(EbxRookBox))
 	// orm.Debug = true
@@ -88,7 +88,7 @@ func main() {
 				cell = "I" + strconv.Itoa(index)
 			}
 		}
-		println(mString)
+		// println(mString)
 		xlsx.SetCellValue("Sheet3", cell, mString)
 		index = index + 1
 	}
