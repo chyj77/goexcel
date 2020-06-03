@@ -27,7 +27,7 @@ type Device struct {
 }
 
 type Lines struct {
-	Addr string
+	Addr string `json:"addr"`
 }
 
 func main() {
