@@ -22,7 +22,7 @@ func main() {
 	// sql := "insert into device_group (group_id,group_name,group_location,controll_device,devices,status,organ_id,type) values(?,?,?,?,?,0,2,0)"
 	xlsx, err := excelize.OpenFile(excelFileName)
 
-	insertSql := "INSERT INTO `device_group` (`group_id`, `group_name`, `group_location`, `controll_device`, `devices`, `status`, `organ_id`, `type`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
+	insertSql := "INSERT INTO `device_group` (`group_id`, `group_name`, `group_location`, `controll_device`, `devices`, `status`, `organ_id`, `type`,`sign_addr`) VALUES (?, ?, ?, ?, ?, ?, ?, ?,?)"
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)
@@ -37,6 +37,7 @@ func main() {
 			index = index + 1
 		} else {
 			size := len(row)
+			cellValue0 := row[0]
 			cellValue3 := row[3]
 			cellValue5 := row[5]
 			var cellValue8 string
@@ -46,7 +47,7 @@ func main() {
 			if cellValue5 != "" {
 				stmt, _ := db.Prepare(insertSql)
 				//插⼊⼀⾏数据
-				ret, er := stmt.Exec(index, cellValue3, cellValue3, cellValue5, cellValue8, 0, 2, 0)
+				ret, er := stmt.Exec(index, cellValue3, cellValue3, cellValue5, cellValue8, 0, 2, 0, cellValue0)
 				if er != nil {
 					fmt.Println(er)
 					os.Exit(1)
