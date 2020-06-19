@@ -22,7 +22,8 @@ func main() {
 	// sql := "insert into device_group (group_id,group_name,group_location,controll_device,devices,status,organ_id,type) values(?,?,?,?,?,0,2,0)"
 	xlsx, err := excelize.OpenFile(excelFileName)
 
-	insertSql := "INSERT INTO `device_group` (`group_id`, `group_name`, `group_location`, `controll_device`, `devices`, `status`, `organ_id`, `type`,`sign_addr`) VALUES (?, ?, ?, ?, ?, ?, ?, ?,?)"
+	updateSql := "update `device` set build = ? where logic_node_id =?"
+
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)
@@ -36,28 +37,18 @@ func main() {
 		if index == 0 {
 			index = index + 1
 		} else {
-			size := len(row)
-			cellValue0 := row[0]
-			cellValue3 := row[3]
+			cellValue0 := row[3]
 			cellValue5 := row[5]
-			var cellValue8 string
-			if size == 9 {
-				cellValue8 = row[8]
-			}
+			// fmt.Println(cellValue5)
 			if cellValue5 != "" {
-				stmt, _ := db.Prepare(insertSql)
+				stmt, _ := db.Prepare(updateSql)
 				//插⼊⼀⾏数据
+				_, er := stmt.Exec(cellValue0, cellValue5)
 
-				if cellValue8 == "" {
-					stmt.Exec(index, cellValue3, cellValue3, cellValue5, nil, 0, 2, 0, cellValue0)
-				} else {
-					stmt.Exec(index, cellValue3, cellValue3, cellValue5, cellValue8, 0, 2, 0, cellValue0)
+				if er != nil {
+					fmt.Println(er)
+					os.Exit(1)
 				}
-
-				// if er != nil {
-				// 	fmt.Println(er)
-				// 	os.Exit(1)
-				// }
 				//LastInsertId返回一个数据库生成的回应命令的整数。
 				//返回插入的ID
 				// insID, _ := ret.LastInsertId()

@@ -52,7 +52,7 @@ func main() {
 	// Get sheet index.
 	// index := xlsx.GetSheetIndex("Sheet3")
 	// Get all the rows in a sheet.
-	rows, _ := xlsx.GetRows("Sheet3")
+	rows, _ := xlsx.GetRows("Sheet4")
 	index := 1
 	for _, row := range rows {
 		// cellValue5 := row[5]
@@ -89,7 +89,7 @@ func main() {
 			}
 		}
 		// println(mString)
-		xlsx.SetCellValue("Sheet3", cell, mString)
+		xlsx.SetCellValue("Sheet4", cell, mString)
 		index = index + 1
 	}
 
